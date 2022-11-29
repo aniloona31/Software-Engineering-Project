@@ -42,7 +42,7 @@ public class TicketGenerationService {
 		Ticket ticket = new Ticket();
 		ticket.setPlace(place);
 		ticket.setUser(user);
-		ticket.setCost(payload.getCost());
+		ticket.setCost(payload.getCost()*payload.getQuantity());
 		ticket.setQuantity(payload.getQuantity());
 		ticket.setTicketId(uniqueID);
 		

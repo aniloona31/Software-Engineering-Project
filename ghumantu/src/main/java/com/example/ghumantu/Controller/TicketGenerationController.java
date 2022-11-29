@@ -3,6 +3,9 @@ package com.example.ghumantu.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.ghumantu.Dto.RazorpayResponse;
+import com.razorpay.Utils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +24,11 @@ import com.example.ghumantu.Service.TicketGenerationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/ticket")
 @AllArgsConstructor
 public class TicketGenerationController {
 	
 	private final TicketGenerationService ticketGenerationService;
-	
+
 	@Autowired
 	private MailService service;
 	
@@ -51,6 +53,28 @@ public class TicketGenerationController {
 		service.sendEmail(mail,model);
 		
 		return new ResponseEntity<TicketResponse>(ticket,HttpStatus.OK);
+	}
+
+	@PostMapping("/verify/payment")
+	public ResponseEntity<Void> verifyPayment(@RequestBody RazorpayResponse razrorpayResp){
+		try {
+			System.out.println(razrorpayResp);
+			JSONObject json = new JSONObject();
+			System.out.println(json);
+			json.put("razorpay_payment_id", razrorpayResp.getRazorpay_payment_id());
+			json.put("razorpay_order_id", razrorpayResp.getRazorpay_order_id());
+			json.put("razorpay_signature", razrorpayResp.getRazorpay_signature());
+			boolean res = Utils.verifyPaymentSignature(json, "BGozKQuVvk7m5wdbv9wq8qgR");
+
+			if (res) {
+				return new ResponseEntity<Void>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 	}
 	
 }
