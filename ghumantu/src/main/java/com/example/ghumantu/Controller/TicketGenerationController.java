@@ -1,19 +1,20 @@
 package com.example.ghumantu.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.ghumantu.Dto.RazorpayResponse;
+import com.example.ghumantu.Model.Ticket;
+import com.example.ghumantu.Service.TicketService;
 import com.razorpay.Utils;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ghumantu.Dto.MailRequest;
 import com.example.ghumantu.Dto.TicketRequest;
@@ -24,14 +25,17 @@ import com.example.ghumantu.Service.TicketGenerationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@AllArgsConstructor
 public class TicketGenerationController {
-	
-	private final TicketGenerationService ticketGenerationService;
+
+	@Autowired
+	private TicketGenerationService ticketGenerationService;
 
 	@Autowired
 	private MailService service;
-	
+
+	@Autowired
+	private TicketService ticketService;
+
 	@PostMapping("/get-ticket")
 	public ResponseEntity<TicketResponse>createTicket(@RequestBody TicketRequest payload){
 //		System.out.println(payload);
@@ -76,5 +80,9 @@ public class TicketGenerationController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
+	@GetMapping("/my-tickets")
+	public ResponseEntity<List<Ticket>> getMyTickets(){
+		return new ResponseEntity<List<Ticket>>(ticketService.getMyTickets(),HttpStatus.OK);
+	}
 }
