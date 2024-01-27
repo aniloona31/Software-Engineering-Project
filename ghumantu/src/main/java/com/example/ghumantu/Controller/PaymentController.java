@@ -22,10 +22,6 @@ public class PaymentController {
 //    private static final String SECRET_ID2 = "rzp_test_J4fInjDpTX475d";
 //    private static final String SECRET_KEY2 = "r8fNXAB78RmsVfdiQbWGwyjr";
 //{
-//    "customerName" : "anirudh",
-//        "email" : "anirudhloona26@gmail.com",
-//        "phoneNumber":"7357177785",
-//        "amount": 500
 //}
     @RequestMapping(path = "/createOrder", method = RequestMethod.POST)
     public OrderResponse createOrder(@RequestBody OrderRequest orderRequest) {
