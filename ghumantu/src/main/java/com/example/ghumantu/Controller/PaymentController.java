@@ -17,8 +17,8 @@ import java.math.BigInteger;
 @RequestMapping("/payment-gateway")
 public class PaymentController {
     private RazorpayClient client;
-    private static final String SECRET_ID1 = "rzp_test_WEgmc0ksFzdl9T";
-    private static final String SECRET_KEY1 = "BGozKQuVvk7m5wdbv9wq8qgR";
+    private static final String SECRET_ID1 = "";
+    private static final String SECRET_KEY1 = "";
 //    private static final String SECRET_ID2 = "rzp_test_J4fInjDpTX475d";
 //    private static final String SECRET_KEY2 = "r8fNXAB78RmsVfdiQbWGwyjr";
 //{
