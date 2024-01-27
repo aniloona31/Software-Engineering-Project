@@ -19,8 +19,7 @@ public class PaymentController {
     private RazorpayClient client;
     private static final String SECRET_ID1 = "";
     private static final String SECRET_KEY1 = "";
-//    private static final String SECRET_ID2 = "rzp_test_J4fInjDpTX475d";
-//    private static final String SECRET_KEY2 = "r8fNXAB78RmsVfdiQbWGwyjr";
+
 //{
 //}
     @RequestMapping(path = "/createOrder", method = RequestMethod.POST)
